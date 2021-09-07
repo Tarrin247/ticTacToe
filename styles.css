@@ -1,0 +1,37 @@
+div {
+    cursor:grab;
+}
+
+.Top {
+    border-bottom: 1px black solid;
+}
+
+.Right {
+    border-left: 1px black solid;   
+}
+
+.Bottom {
+    border-Top: 1px black solid;  
+}
+
+.Left { border-right: 1px black solid;
+    
+}
+
+.row>div { 
+    float: left;
+    height: 100px; 
+    width: 100px;    
+}
+
+.row{
+  width: 302px;  
+   clearfix: both;
+   align-content:center;
+   margin:auto;
+}
+
+#board{ 
+    padding-Top: 3em;
+    text-align: center;
+}
