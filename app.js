@@ -1,24 +1,67 @@
-let cells = document.querySelectorAll('.row > div');
+let cells = document.querySelectorAll(".Cell");
+let resetButton = document.getElementById("reset-button");
+let turnCounter = 0;
+let wins = [
+    [cells[0], cells[1], cells[2]],
+    [cells[3], cells[4], cells[5]],
+    [cells[6], cells[7], cells[8]],
+    [cells[0], cells[3], cells[6]],
+    [cells[1], cells[4], cells[7]],
+    [cells[2], cells[5], cells[8]],
+    [cells[0], cells[4], cells[8]],
+    [cells[2], cells[4], cells[6]]
+];
 
-// console.log(cells);
-// logs all 9 cells in the .row > div to console by name from html
-
-// cells [0].addEventListener
+resetButton.addEventListener("click", function () {
+    window.location.reload();
+});
 
 for (let i = 0; i < cells.length; i++) {
-    // console.log(cells[i]);
-    // verify that cells array 0-8
-    // cells[i] represents the html element. 1st argument is string. Second is a function to run.
-    cells[i].addEventListener('click', cellClicked);
-    // cellClicked no parenthesis means not calling it right away. When the click occurs it will run the function and not including parenthesis is how you make that work.
-
+    cells[i].addEventListener("click", cellClicked)
 }
 
-function cellClicked () { 
-    // When the click occurs the function will run.
-    // console.log('IT WORKED!');
-    //**************** */
-    // logs a PointerEvent with curly braces indicates js object which works on '.notation' properties. See properties in drop down. 
-    console.log(event); 
+function cellClicked(e) {
+    if (turnCounter % 2 == 0) {
+        e.target.textContent = "X";
+    } else {
+        e.target.textContent = "O";
+    }
+    
+    turnCounter++
+
+    checkWin();
 }
 
+function checkWin() {
+    for (let i = 0; i < wins.length; i++) {
+        // looping over the wins array
+
+        let xCount = 0;
+        let oCount = 0;
+
+        for (let j = 0; j < wins[i].length; j++) {
+            // looping over each winning combo array inside wins array.
+
+            if (wins[i][j].textContent == "X") {
+                xCount++
+            } else if (wins[i][j].textContent == "O") {
+                oCount++
+            }
+        }
+
+        if (xCount == 3) {
+            alert("X Wins!");
+            resetButton.style.display = "inline";
+            return
+        } else if (oCount == 3) {
+            alert("O Wins!");
+            resetButton.style.display = "inline";
+            return
+        }
+    }
+
+    if (turnCounter == 9) {
+        alert("Draw!");
+        resetButton.style.display = "inline";
+    }
+}
